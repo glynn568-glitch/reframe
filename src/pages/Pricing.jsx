@@ -179,7 +179,7 @@ export default function Pricing() {
             },
             {
               q: 'Do you offer refunds?',
-              a: 'All sales are final. You can try the free tier first to make sure Reframe works for you before upgrading.',
+              a: 'All sales are final.',
             },
           ].map(item => (
             <div key={item.q} style={{
