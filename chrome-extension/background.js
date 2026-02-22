@@ -17,10 +17,3 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     });
   }
 });
-
-// Listen for messages from content script
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (msg.type === "IMAGE_SELECTED") {
-    chrome.storage.local.set({ pendingImage: msg.url });
-  }
-});
