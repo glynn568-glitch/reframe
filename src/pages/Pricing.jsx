@@ -171,15 +171,11 @@ export default function Pricing() {
             },
             {
               q: 'Can I cancel Pro anytime?',
-              a: 'Yes. Cancel with one click, no questions asked. You keep Pro access until the end of your billing period.',
+              a: 'Yes. Cancel with one click, no questions asked. You keep Pro access until the end of your billing period. All sales are final.',
             },
             {
               q: 'What payment methods do you accept?',
               a: 'We use Lemon Squeezy for payments. They accept all major credit cards, PayPal, and Apple Pay.',
-            },
-            {
-              q: 'Do you offer refunds?',
-              a: 'All sales are final.',
             },
           ].map(item => (
             <div key={item.q} style={{
