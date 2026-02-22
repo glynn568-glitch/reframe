@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const TIERS = [
   {
@@ -68,6 +69,18 @@ const TIERS = [
 ]
 
 export default function Pricing() {
+  const { user } = useAuth()
+
+  function getCheckoutUrl(tier) {
+    let url = tier.ctaLink
+    // Append user ID to Lemon Squeezy checkout for subscription linking
+    if (user && url.includes('lemonsqueezy.com')) {
+      const sep = url.includes('?') ? '&' : '?'
+      url = `${url}${sep}checkout[custom][user_id]=${user.id}&checkout[email]=${encodeURIComponent(user.email)}`
+    }
+    return url
+  }
+
   return (
     <>
       <Helmet>
@@ -126,7 +139,7 @@ export default function Pricing() {
                 <p style={{ fontSize: 13, color: 'var(--text-faint)', marginTop: 8 }}>{tier.desc}</p>
               </div>
 
-              <a href={tier.ctaLink} style={{
+              <a href={getCheckoutUrl(tier)} style={{
                 display: 'block', textAlign: 'center',
                 background: tier.highlight ? '#fff' : 'var(--bg-hover)',
                 color: tier.highlight ? '#09090B' : '#fff',

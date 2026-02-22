@@ -1,10 +1,13 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 
 export default function Navbar() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
-  
+  const { user, isPro, signOut, loading } = useAuth()
+
   const isActive = (path) => location.pathname === path
 
   const navStyle = {
@@ -43,7 +46,7 @@ export default function Navbar() {
       <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
         <Link to="/tool" style={linkStyle(isActive('/tool'))}>Tool</Link>
         <Link to="/pricing" style={linkStyle(isActive('/pricing'))}>Pricing</Link>
-        
+
         {/* Sizes dropdown */}
         <div style={{ position: 'relative' }}
           onMouseEnter={() => setMenuOpen(true)}
@@ -86,16 +89,34 @@ export default function Navbar() {
           )}
         </div>
 
-        <Link to="/tool" style={{
-          background: '#fff',
-          color: '#09090B',
-          padding: '8px 20px',
-          borderRadius: 'var(--radius-sm)',
-          fontSize: 13,
-          fontWeight: 600,
-          transition: 'opacity 0.2s',
-          textDecoration: 'none',
-        }}>Resize Free →</Link>
+        {!loading && (
+          user ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              {isPro && (
+                <span style={{
+                  fontSize: 10, fontWeight: 700, letterSpacing: '0.05em',
+                  background: 'rgba(255,255,255,0.1)', padding: '3px 8px',
+                  borderRadius: 6, color: '#4ade80',
+                }}>PRO</span>
+              )}
+              <button onClick={() => signOut()} style={{
+                background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)',
+                cursor: 'pointer', fontSize: 12,
+              }}>Log out</button>
+            </div>
+          ) : (
+            <Link to="/login" style={{
+              background: '#fff',
+              color: '#09090B',
+              padding: '8px 20px',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: 13,
+              fontWeight: 600,
+              transition: 'opacity 0.2s',
+              textDecoration: 'none',
+            }}>Log In</Link>
+          )
+        )}
       </nav>
     </header>
   )

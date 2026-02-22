@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Tool from './pages/Tool'
 import Pricing from './pages/Pricing'
 import SizesPage from './pages/SizesPage'
+import Login from './pages/Login'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/tool" element={<Tool />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/sizes/:platform" element={<SizesPage />} />
         </Routes>
       </main>

@@ -1,5 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { PLATFORMS, CATEGORIES } from '../data/platforms'
+import { useAuth } from '../context/AuthContext'
 
 function gcd(a, b) { return b === 0 ? a : gcd(b, a % b) }
 
@@ -94,26 +96,8 @@ function PreviewCard({ platform, img, selected, onToggle, onDownload, exported }
   )
 }
 
-// Freemium: track daily exports
-function getDailyExports() {
-  try {
-    const data = JSON.parse(localStorage.getItem('rf_exports') || '{}')
-    const today = new Date().toISOString().split('T')[0]
-    return data.date === today ? data.count : 0
-  } catch { return 0 }
-}
-function incrementDailyExports() {
-  const today = new Date().toISOString().split('T')[0]
-  try {
-    const data = JSON.parse(localStorage.getItem('rf_exports') || '{}')
-    const count = data.date === today ? data.count + 1 : 1
-    localStorage.setItem('rf_exports', JSON.stringify({ date: today, count }))
-    return count
-  } catch { return 1 }
-}
-const FREE_LIMIT = 5
-
 export default function ImageResizer() {
+  const { user, isPro, tryExport, getDailyCount, FREE_LIMIT, loading: authLoading } = useAuth()
   const [img, setImg] = useState(null)
   const [imgSrc, setImgSrc] = useState(null)
   const [fileName, setFileName] = useState('')
@@ -122,9 +106,10 @@ export default function ImageResizer() {
   const [exporting, setExporting] = useState(false)
   const [exported, setExported] = useState(new Set())
   const [activeFilter, setActiveFilter] = useState('all')
-  const [dailyCount, setDailyCount] = useState(getDailyExports())
   const [showUpgrade, setShowUpgrade] = useState(false)
   const fileRef = useRef(null)
+
+  const dailyCount = getDailyCount()
 
   const handleFile = useCallback((file) => {
     if (!file || !file.type.startsWith('image/')) return
@@ -153,33 +138,59 @@ export default function ImageResizer() {
   const selectAll = () => setSelected(prev => { const n = new Set(prev); filteredPlatforms.forEach(p => n.add(p.id)); return n })
   const selectNone = () => setSelected(prev => { const n = new Set(prev); filteredPlatforms.forEach(p => n.delete(p.id)); return n })
 
-  const downloadOne = (platform) => {
+  const downloadOne = async (platform) => {
     if (!img) return
-    if (dailyCount >= FREE_LIMIT) { setShowUpgrade(true); return }
+    if (!user) return
+    const allowed = await tryExport()
+    if (!allowed) { setShowUpgrade(true); return }
     const canvas = cropAndResize(img, platform.w, platform.h)
     const link = document.createElement('a')
     link.download = `${fileName || 'image'}-${platform.id}-${platform.w}x${platform.h}.png`
     link.href = canvas.toDataURL('image/png')
     link.click()
-    const newCount = incrementDailyExports()
-    setDailyCount(newCount)
     setExported(prev => new Set([...prev, platform.id]))
   }
 
   const downloadAll = async () => {
-    if (!img) return
+    if (!img || !user) return
     setExporting(true)
     const selectedPlatforms = PLATFORMS.filter(p => selected.has(p.id))
     for (const p of selectedPlatforms) {
-      if (dailyCount + exported.size >= FREE_LIMIT) { setShowUpgrade(true); setExporting(false); return }
+      const allowed = await tryExport()
+      if (!allowed) { setShowUpgrade(true); setExporting(false); return }
       await new Promise(r => setTimeout(r, 150))
-      downloadOne(p)
+      const canvas = cropAndResize(img, p.w, p.h)
+      const link = document.createElement('a')
+      link.download = `${fileName || 'image'}-${p.id}-${p.w}x${p.h}.png`
+      link.href = canvas.toDataURL('image/png')
+      link.click()
+      setExported(prev => new Set([...prev, p.id]))
     }
     setExporting(false)
   }
 
   const reset = () => { setImg(null); setImgSrc(null); setFileName(''); setExported(new Set()) }
   const selectedCount = PLATFORMS.filter(p => selected.has(p.id)).length
+
+  // Not logged in: show login prompt
+  if (!authLoading && !user) {
+    return (
+      <div style={{ maxWidth: 480, margin: '60px auto', padding: '0 28px', textAlign: 'center' }}>
+        <h2 style={{
+          fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 400,
+          letterSpacing: '-0.03em', marginBottom: 12,
+        }}>Sign in to resize</h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 28, lineHeight: 1.6 }}>
+          Create a free account to get {FREE_LIMIT} exports per day. Upgrade to Pro for unlimited.
+        </p>
+        <Link to="/login" style={{
+          display: 'inline-block', background: '#fff', color: '#09090B',
+          padding: '14px 32px', borderRadius: 12, fontWeight: 700, fontSize: 15,
+          textDecoration: 'none',
+        }}>Log In or Sign Up</Link>
+      </div>
+    )
+  }
 
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', padding: '28px 28px 100px' }}>
@@ -201,11 +212,11 @@ export default function ImageResizer() {
             <p style={{ color: 'var(--text-muted)', fontSize: 15, lineHeight: 1.6, marginBottom: 28 }}>
               Free accounts get {FREE_LIMIT} exports per day. Upgrade to Pro for unlimited exports, custom crop positions, batch uploads, and no watermarks.
             </p>
-            <a href="/pricing" style={{
+            <Link to="/pricing" style={{
               display: 'inline-block', background: '#fff', color: '#09090B',
               padding: '14px 32px', borderRadius: 12, fontWeight: 700, fontSize: 15,
-              marginBottom: 12,
-            }}>Upgrade to Pro — $5/mo</a>
+              marginBottom: 12, textDecoration: 'none',
+            }}>Upgrade to Pro — $5/mo</Link>
             <div>
               <button onClick={() => setShowUpgrade(false)} style={{
                 background: 'none', border: 'none', color: 'var(--text-faint)',
@@ -225,9 +236,15 @@ export default function ImageResizer() {
           background: 'var(--bg-subtle)', border: '1px solid var(--border)',
           borderRadius: 8, padding: '5px 12px',
         }}>
-          {dailyCount}/{FREE_LIMIT} free exports today
-          {dailyCount >= FREE_LIMIT - 1 && (
-            <a href="/pricing" style={{ color: '#fff', marginLeft: 8, fontWeight: 600 }}>Upgrade</a>
+          {isPro ? (
+            <span style={{ color: '#4ade80' }}>Pro — Unlimited exports</span>
+          ) : (
+            <>
+              {dailyCount}/{FREE_LIMIT} free exports today
+              {dailyCount >= FREE_LIMIT - 1 && (
+                <Link to="/pricing" style={{ color: '#fff', marginLeft: 8, fontWeight: 600 }}>Upgrade</Link>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -360,7 +377,7 @@ export default function ImageResizer() {
             </button>
           </div>
           <p style={{ textAlign: 'center', marginTop: 10, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-ghost)' }}>
-            100% client-side · nothing uploaded · no account needed
+            100% client-side · nothing uploaded · your images stay on your device
           </p>
         </>
       )}
