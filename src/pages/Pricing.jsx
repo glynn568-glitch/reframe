@@ -46,26 +46,6 @@ const TIERS = [
     ],
     limitations: [],
   },
-  {
-    name: 'Team',
-    price: '$12',
-    period: '/user/month',
-    desc: 'For agencies and marketing teams',
-    cta: 'Contact Us',
-    ctaLink: 'mailto:glynn568@gmail.com?subject=Reframe Team Plan',
-    highlight: false,
-    features: [
-      'Everything in Pro',
-      'Custom brand dimensions',
-      'Shared team presets',
-      'API access',
-      'Bulk export (zip download)',
-      'Usage analytics',
-      'Priority support',
-      'SSO integration',
-    ],
-    limitations: [],
-  },
 ]
 
 export default function Pricing() {
@@ -85,7 +65,7 @@ export default function Pricing() {
     <>
       <SEO
         title="Pricing — Reframe Image Resizer"
-        description="Reframe pricing: Free tier with 5 exports/day, Pro at $5/mo for unlimited exports and custom cropping, Team at $12/user/mo for agencies."
+        description="Reframe pricing: Free tier with 5 exports/day, Pro at $5/mo for unlimited exports, batch upload, and custom cropping."
         path="/pricing"
       />
 
@@ -105,8 +85,8 @@ export default function Pricing() {
         </div>
 
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20,
-          marginBottom: 60,
+          display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20,
+          maxWidth: 720, margin: '0 auto 60px',
         }}>
           {TIERS.map(tier => (
             <div key={tier.name} style={{
