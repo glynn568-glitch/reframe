@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reframe</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 380px;
+      min-height: 480px;
+      background: #09090B;
+      color: #fff;
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      overflow-y: auto;
+    }
+    .header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 20px; font-weight: 300; letter-spacing: -0.02em; }
+    .tag { font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; }
+    .content { padding: 16px 20px; }
+    
+    .upload-zone {
+      border: 2px dashed rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .upload-zone:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.02); }
+    .upload-zone .icon { font-size: 20px; color: rgba(255,255,255,0.25); margin-bottom: 10px; }
+    .upload-zone .label { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .upload-zone .sub { font-size: 12px; color: rgba(255,255,255,0.2); }
+    
+    .preview-img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    .source-info {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      font-family: monospace;
+      margin-bottom: 16px;
+    }
+    
+    .formats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .format-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1.5px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left;
+      color: #fff;
+    }
+    .format-btn:hover { background: rgba(255,255,255,0.06); }
+    .format-btn.selected { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+    .format-btn .name { font-size: 11px; font-weight: 600; }
+    .format-btn .size { font-size: 10px; color: rgba(255,255,255,0.3); font-family: monospace; margin-top: 2px; }
+    
+    .download-btn {
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      color: #09090B;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .download-btn:hover { opacity: 0.9; }
+    .download-btn:disabled { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.15); cursor: not-allowed; }
+    
+    .footer {
+      text-align: center;
+      padding: 8px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.1);
+      font-family: monospace;
+    }
+    .footer a { color: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">Reframe</div>
+    <div class="tag">RESIZE FOR SOCIAL</div>
+  </div>
+  
+  <div class="content">
+    <div id="upload-section">
+      <div class="upload-zone" id="drop-zone">
+        <div class="icon">↑</div>
+        <div class="label">Drop or click to upload</div>
+        <div class="sub">PNG, JPG, WebP</div>
+      </div>
+      <input type="file" id="file-input" accept="image/*" hidden />
+    </div>
+    
+    <div id="resize-section" style="display: none;">
+      <img id="preview" class="preview-img" />
+      <div id="source-info" class="source-info"></div>
+      
+      <div id="formats" class="formats-grid"></div>
+      
+      <button id="download-btn" class="download-btn" disabled>Select formats to download</button>
+    </div>
+  </div>
+  
+  <div class="footer">
+    100% local · <a href="https://reframe.so" target="_blank">reframe.so</a>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
