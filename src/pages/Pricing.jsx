@@ -179,7 +179,7 @@ export default function Pricing() {
             },
             {
               q: 'Do you offer refunds?',
-              a: 'Yes, we offer a full refund within 14 days of purchase if you\'re not satisfied.',
+              a: 'All sales are final. You can try the free tier first to make sure Reframe works for you before upgrading.',
             },
           ].map(item => (
             <div key={item.q} style={{
