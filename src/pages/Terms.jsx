@@ -39,7 +39,7 @@ export default function Terms() {
 
           <section>
             <h2 style={{ fontSize: 18, fontWeight: 600, color: '#fff', marginBottom: 8 }}>Payments and refunds</h2>
-            <p>Pro subscriptions are billed monthly or annually through Lemon Squeezy. You can cancel anytime from your Lemon Squeezy account. All sales are final — no refunds. You keep Pro access until the end of your billing period after cancellation.</p>
+            <p>Pro subscriptions are billed monthly or annually through Lemon Squeezy. You can cancel anytime from your Lemon Squeezy account. All sales are final.</p>
           </section>
 
           <section>
