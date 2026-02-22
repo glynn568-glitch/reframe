@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 import { PLATFORMS } from '../data/platforms'
+import SEO from '../components/SEO'
 
 function RatioBox({ w, h, color }) {
   const maxW = 28, maxH = 20;
@@ -18,11 +18,11 @@ function RatioBox({ w, h, color }) {
 export default function Home() {
   return (
     <>
-      <Helmet>
-        <title>Reframe — Resize Images for Every Social Platform Instantly</title>
-        <meta name="description" content="Free online image resizer for Instagram, Facebook, X/Twitter, LinkedIn, TikTok, YouTube, Pinterest. Upload once, download 15+ perfectly sized images. No signup." />
-        <link rel="canonical" href="https://reframe.so" />
-      </Helmet>
+      <SEO
+        title="Reframe — Resize Images for Every Social Platform Instantly"
+        description="Free online image resizer for Instagram, Facebook, X/Twitter, LinkedIn, TikTok, YouTube, Pinterest. Upload once, download 16 perfectly sized images. No signup required."
+        path="/"
+      />
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 28px' }}>
         {/* Hero */}

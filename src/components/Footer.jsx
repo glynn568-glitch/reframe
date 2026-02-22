@@ -46,7 +46,7 @@ export default function Footer() {
         <div>
           <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--text-ghost)', letterSpacing: '0.08em', marginBottom: 14 }}>RESOURCES</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <a href="mailto:hello@reframe.so" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Contact</a>
+            <a href="mailto:glynn568@gmail.com" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Contact</a>
             <a href="/privacy" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Privacy Policy</a>
             <a href="/terms" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Terms of Service</a>
           </div>

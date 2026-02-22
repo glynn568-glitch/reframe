@@ -1,14 +1,14 @@
-import { Helmet } from 'react-helmet-async'
 import ImageResizer from '../components/ImageResizer'
+import SEO from '../components/SEO'
 
 export default function Tool() {
   return (
     <>
-      <Helmet>
-        <title>Free Image Resizer for Social Media — Reframe</title>
-        <meta name="description" content="Resize images for Instagram, Facebook, X/Twitter, LinkedIn, TikTok, YouTube, Pinterest. Upload once, download all sizes. Free, instant, no signup required." />
-        <link rel="canonical" href="https://reframe.so/tool" />
-      </Helmet>
+      <SEO
+        title="Free Image Resizer for Social Media — Reframe"
+        description="Resize images for Instagram, Facebook, X/Twitter, LinkedIn, TikTok, YouTube, Pinterest. Upload once, download all sizes. Free, instant, no signup required."
+        path="/tool"
+      />
       <ImageResizer />
     </>
   )

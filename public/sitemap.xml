@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://reframe.so/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://reframe.so/tool</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://reframe.so/pricing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/instagram</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/facebook</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/twitter</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/linkedin</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/youtube</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/tiktok</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://reframe.so/sizes/pinterest</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/tool</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/pricing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/instagram</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/facebook</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/twitter</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/linkedin</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/youtube</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/tiktok</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://reframe-mauve.vercel.app/sizes/pinterest</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
 </urlset>

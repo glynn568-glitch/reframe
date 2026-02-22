@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { PLATFORMS, SEO_DATA } from '../data/platforms'
+import SEO from '../components/SEO'
 
 function RatioBox({ w, h, color }) {
   const maxW = 40, maxH = 28, r = w / h
@@ -44,10 +45,12 @@ export default function SizesPage() {
 
   return (
     <>
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={`/sizes/${platform}`}
+      />
       <Helmet>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.description} />
-        <link rel="canonical" href={`https://reframe.so/sizes/${platform}`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

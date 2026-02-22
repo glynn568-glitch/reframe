@@ -1,6 +1,6 @@
-import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import SEO from '../components/SEO'
 
 const TIERS = [
   {
@@ -52,7 +52,7 @@ const TIERS = [
     period: '/user/month',
     desc: 'For agencies and marketing teams',
     cta: 'Contact Us',
-    ctaLink: 'mailto:hello@reframe.so?subject=Reframe Team Plan',
+    ctaLink: 'mailto:glynn568@gmail.com?subject=Reframe Team Plan',
     highlight: false,
     features: [
       'Everything in Pro',
@@ -83,11 +83,11 @@ export default function Pricing() {
 
   return (
     <>
-      <Helmet>
-        <title>Pricing — Reframe Image Resizer</title>
-        <meta name="description" content="Reframe pricing: Free tier with 5 exports/day, Pro at $5/mo for unlimited exports and custom cropping, Team at $12/user/mo for agencies." />
-        <link rel="canonical" href="https://reframe.so/pricing" />
-      </Helmet>
+      <SEO
+        title="Pricing — Reframe Image Resizer"
+        description="Reframe pricing: Free tier with 5 exports/day, Pro at $5/mo for unlimited exports and custom cropping, Team at $12/user/mo for agencies."
+        path="/pricing"
+      />
 
       <div style={{ maxWidth: 1060, margin: '0 auto', padding: '60px 28px 80px' }}>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
