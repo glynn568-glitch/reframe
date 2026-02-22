@@ -31,8 +31,7 @@ const TIERS = [
     yearlyPrice: '$39/year (save 35%)',
     desc: 'For creators who post regularly',
     cta: 'Upgrade to Pro',
-    // Replace this URL with your Lemon Squeezy checkout link
-    ctaLink: 'https://reframe.lemonsqueezy.com/checkout/pro',
+    ctaLink: 'https://reframeit.lemonsqueezy.com/checkout/buy/913833c3-548f-4d01-b6d4-094fc1e984ed',
     highlight: true,
     features: [
       'Unlimited exports',
