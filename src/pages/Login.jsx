@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function Login() {
@@ -12,6 +12,8 @@ export default function Login() {
   const [checkEmail, setCheckEmail] = useState(false)
   const { signIn, signUp, signInWithGoogle } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/tool'
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -24,7 +26,7 @@ export default function Login() {
         setCheckEmail(true)
       } else {
         await signIn(email, password)
-        navigate('/tool')
+        navigate(redirectTo)
       }
     } catch (err) {
       setError(err.message)

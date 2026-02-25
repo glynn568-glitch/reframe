@@ -10,9 +10,12 @@ chrome.runtime.onInstalled.addListener(() => {
 // Handle context menu click
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "reframe-resize" && info.srcUrl) {
+    // Block on YouTube to avoid any copyrighted content concerns
+    const url = tab?.url || "";
+    if (url.includes("youtube.com") || url.includes("youtu.be")) return;
+
     // Store the image URL and open popup
     chrome.storage.local.set({ pendingImage: info.srcUrl }, () => {
-      // Open the extension popup with the image
       chrome.action.openPopup();
     });
   }

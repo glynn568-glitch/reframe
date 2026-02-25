@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Reframe — Social Image Resizer",
-  "version": "1.0.0",
-  "description": "Right-click any image to instantly resize it for Instagram, Facebook, X/Twitter, LinkedIn, TikTok, YouTube, Pinterest.",
+  "version": "1.1.0",
+  "description": "Right-click any image to resize it for popular social media platforms. Crop and export in one click, processed locally.",
   "permissions": [
     "contextMenus",
     "activeTab",

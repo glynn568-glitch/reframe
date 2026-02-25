@@ -32,7 +32,7 @@ const TIERS = [
     yearlyPrice: '$39/year (save 35%)',
     desc: 'For creators who post regularly',
     cta: 'Upgrade to Pro',
-    ctaLink: 'https://reframeit.lemonsqueezy.com/checkout/buy/913833c3-548f-4d01-b6d4-094fc1e984ed',
+    ctaLink: 'https://reframeit.lemonsqueezy.com/checkout/buy/d61dca23-a5da-437b-9910-0656c4fb25f6',
     highlight: true,
     features: [
       'Unlimited exports',
@@ -53,12 +53,11 @@ export default function Pricing() {
 
   function getCheckoutUrl(tier) {
     let url = tier.ctaLink
-    // Append user ID to Lemon Squeezy checkout for subscription linking
-    if (user && url.includes('lemonsqueezy.com')) {
-      const sep = url.includes('?') ? '&' : '?'
-      url = `${url}${sep}checkout[custom][user_id]=${user.id}&checkout[email]=${encodeURIComponent(user.email)}`
-    }
-    return url
+    if (!url.includes('lemonsqueezy.com')) return url
+    // Must be logged in so webhook can link subscription to account
+    if (!user) return '/login?redirect=/pricing'
+    const sep = url.includes('?') ? '&' : '?'
+    return `${url}${sep}checkout[custom][user_id]=${user.id}&checkout[email]=${encodeURIComponent(user.email)}`
   }
 
   return (

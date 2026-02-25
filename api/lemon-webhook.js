@@ -39,14 +39,36 @@ export default async function handler(req, res) {
   const eventName = event.meta?.event_name
 
   // Extract user_id from custom data (passed via checkout URL)
-  const userId = event.meta?.custom_data?.user_id
+  let userId = event.meta?.custom_data?.user_id
   const subscriptionId = event.data?.id?.toString()
 
+  // Fallback: match by email if no user_id in custom data
   if (!userId) {
-    // No user_id means checkout wasn't linked to an account
-    // Log it but don't fail — they might have checked out without logging in
-    console.log(`Webhook ${eventName}: no user_id in custom_data`)
-    return res.status(200).json({ ok: true, note: 'no user_id' })
+    const customerEmail = event.data?.attributes?.user_email
+    if (customerEmail) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('email', customerEmail)
+        .single()
+      if (data) {
+        userId = data.id
+        console.log(`Webhook ${eventName}: matched user by email ${customerEmail}`)
+      } else {
+        // Try auth.users table as last resort
+        const { data: authData } = await supabase.auth.admin.listUsers()
+        const matched = authData?.users?.find(u => u.email === customerEmail)
+        if (matched) {
+          userId = matched.id
+          console.log(`Webhook ${eventName}: matched user by auth email ${customerEmail}`)
+        }
+      }
+    }
+
+    if (!userId) {
+      console.log(`Webhook ${eventName}: no user_id, no email match`)
+      return res.status(200).json({ ok: true, note: 'no user_id' })
+    }
   }
 
   const status = event.data?.attributes?.status
