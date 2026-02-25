@@ -371,12 +371,6 @@ function setupUpgradeModal() {
   document.getElementById('upgrade-modal').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) hideModal('upgrade-modal');
   });
-
-  // Build checkout URL with user_id if signed in
-  const link = document.getElementById('upgrade-link');
-  if (session) {
-    link.href = `${PRICING_URL}`;
-  }
 }
 
 function showUpgradeModal() {
@@ -442,10 +436,6 @@ async function init() {
   renderUsage();
   setupAuthModal();
   setupUpgradeModal();
-
-  // Wire up initial sign-in button
-  const signInBtn = document.getElementById('sign-in-btn');
-  if (signInBtn) signInBtn.addEventListener('click', () => showModal('auth-modal'));
 }
 
 init();

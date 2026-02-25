@@ -24,7 +24,7 @@ export default function Footer() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <Link to="/tool" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Image Resizer</Link>
             <Link to="/pricing" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Pricing</Link>
-            <a href="#chrome" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Chrome Extension</a>
+            <a href="https://chromewebstore.google.com/detail/reframe-%E2%80%94-social-image-re/mjjlnehhnfldlgaajacgcmoddgbhieed" target="_blank" rel="noopener" style={{ fontSize: 13, color: 'var(--text-muted)' }}>Chrome Extension</a>
           </div>
         </div>
 
