@@ -64,3 +64,85 @@ img { max-width: 100%; display: block; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* Hero glow */
+.hero-glow {
+  position: relative;
+}
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.12) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* Button glow */
+.btn-primary {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 40px rgba(255,255,255,0.12), 0 4px 16px rgba(0,0,0,0.3);
+}
+.btn-secondary {
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.15) !important;
+  color: rgba(255,255,255,0.7) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float { animation: float 6s ease-in-out infinite; }
+
+/* Table row hover */
+.table-row:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Gradient top border for cards */
+.gradient-border-top {
+  position: relative;
+  overflow: hidden;
+}
+.gradient-border-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-3 { grid-template-columns: 1fr !important; }
+  .trust-row { flex-direction: column !important; gap: 24px !important; }
+  .hero-mockup { transform: scale(0.75); transform-origin: top center; }
+}
+@media (max-width: 480px) {
+  .platform-strip { gap: 12px !important; padding: 16px 0 32px !important; }
+  .hero-mockup { transform: scale(0.6); transform-origin: top center; }
+}

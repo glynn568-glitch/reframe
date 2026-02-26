@@ -15,6 +15,136 @@ function RatioBox({ w, h, color }) {
   )
 }
 
+const PLATFORM_COLORS = {
+  'Instagram': '#E1306C',
+  'Facebook': '#1877F2',
+  'X / Twitter': '#A0A0A0',
+  'LinkedIn': '#0A66C2',
+  'TikTok': '#00F2EA',
+  'YouTube': '#FF0000',
+  'Pinterest': '#E60023',
+  'Threads': '#777777',
+}
+
+const STEP_ICONS = {
+  '01': (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="17 8 12 3 7 8"/>
+      <line x1="12" y1="3" x2="12" y2="15"/>
+    </svg>
+  ),
+  '02': (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7"/>
+      <rect x="14" y="3" width="7" height="7"/>
+      <rect x="14" y="14" width="7" height="7"/>
+      <rect x="3" y="14" width="7" height="7"/>
+    </svg>
+  ),
+  '03': (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+  ),
+}
+
+const TRUST_ICONS = {
+  'No Upload': (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+  ),
+  'No Account': (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="8.5" cy="7" r="4"/>
+      <line x1="18" y1="8" x2="23" y2="13"/>
+      <line x1="23" y1="8" x2="18" y2="13"/>
+    </svg>
+  ),
+  'No Tracking': (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+      <line x1="1" y1="1" x2="23" y2="23"/>
+    </svg>
+  ),
+}
+
+function HeroMockup() {
+  const colors = ['#E1306C', '#1877F2', '#0A66C2', '#FF0000', '#00F2EA', '#E60023']
+  const sizes = [
+    { w: 44, h: 44, label: '1:1' },
+    { w: 44, h: 56, label: '4:5' },
+    { w: 56, h: 32, label: '16:9' },
+    { w: 44, h: 56, label: '9:16' },
+    { w: 56, h: 28, label: '3:1' },
+    { w: 40, h: 56, label: '2:3' },
+  ]
+
+  return (
+    <div className="hero-mockup float" style={{
+      marginTop: 48,
+      display: 'flex',
+      justifyContent: 'center',
+    }}>
+      <div style={{
+        background: 'rgba(255,255,255,0.02)',
+        border: '1px solid rgba(255,255,255,0.06)',
+        borderRadius: 16,
+        padding: '16px 20px 20px',
+        width: 420,
+        maxWidth: '100%',
+      }}>
+        {/* Browser dots */}
+        <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+          <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
+          <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
+          <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,0.04)' }} />
+        </div>
+
+        {/* Upload zone */}
+        <div style={{
+          border: '1.5px dashed rgba(255,255,255,0.08)',
+          borderRadius: 10,
+          padding: '14px 0',
+          textAlign: 'center',
+          marginBottom: 16,
+        }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" strokeLinecap="round" style={{ margin: '0 auto 6px' }}>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.12)', fontFamily: 'var(--font-mono)' }}>DROP IMAGE HERE</div>
+        </div>
+
+        {/* Output grid */}
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {sizes.map((s, i) => (
+            <div key={i} style={{
+              width: s.w,
+              height: s.h,
+              borderRadius: 6,
+              border: `1px solid ${colors[i]}30`,
+              background: `${colors[i]}08`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <span style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: `${colors[i]}60` }}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   return (
     <>
@@ -26,7 +156,7 @@ export default function Home() {
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 28px' }}>
         {/* Hero */}
-        <section style={{ textAlign: 'center', paddingTop: 80, paddingBottom: 64 }}>
+        <section className="hero-glow" style={{ textAlign: 'center', paddingTop: 80, paddingBottom: 64, position: 'relative', zIndex: 1 }}>
           <div className="fade-up" style={{
             display: 'inline-block',
             fontFamily: 'var(--font-mono)',
@@ -61,7 +191,7 @@ export default function Home() {
           </p>
 
           <div className="fade-up-3" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/tool" style={{
+            <Link to="/tool" className="btn-primary" style={{
               background: '#fff',
               color: '#09090B',
               padding: '14px 32px',
@@ -69,9 +199,8 @@ export default function Home() {
               fontSize: 16,
               fontWeight: 700,
               display: 'inline-block',
-              transition: 'transform 0.2s, box-shadow 0.2s',
             }}>Start Resizing — It's Free →</Link>
-            <a href="#how" style={{
+            <a href="#how" className="btn-secondary" style={{
               background: 'var(--bg-hover)',
               color: 'var(--text-muted)',
               padding: '14px 28px',
@@ -90,18 +219,23 @@ export default function Home() {
               Also available as a Chrome extension
             </a>
           </div>
+
+          <HeroMockup />
         </section>
 
         {/* Supported Platforms Strip */}
-        <section style={{
+        <section className="platform-strip" style={{
           display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap',
           padding: '24px 0 48px',
           borderTop: '1px solid var(--border)',
           borderBottom: '1px solid var(--border)',
           marginBottom: 64,
         }}>
-          {['Instagram', 'Facebook', 'X / Twitter', 'LinkedIn', 'TikTok', 'YouTube', 'Pinterest', 'Threads'].map(name => (
-            <span key={name} style={{ fontSize: 13, color: 'var(--text-faint)', fontWeight: 500 }}>{name}</span>
+          {Object.entries(PLATFORM_COLORS).map(([name, color]) => (
+            <span key={name} style={{ fontSize: 13, color: 'var(--text-faint)', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: color, opacity: 0.6, flexShrink: 0 }} />
+              {name}
+            </span>
           ))}
         </section>
 
@@ -112,19 +246,22 @@ export default function Home() {
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 400, letterSpacing: '-0.02em' }}>Three steps. Zero friction.</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+          <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {[
               { num: '01', title: 'Upload', desc: 'Drop any image — PNG, JPG, or WebP. No file size limit.' },
               { num: '02', title: 'Select', desc: 'Pick the platforms you need. Filter by network. Select all or pick individually.' },
               { num: '03', title: 'Download', desc: 'Export all formats at once or download them individually. Perfect dimensions every time.' },
             ].map(step => (
-              <div key={step.num} style={{
+              <div key={step.num} className="card-hover gradient-border-top" style={{
                 padding: 28,
                 background: 'var(--bg-subtle)',
                 borderRadius: 'var(--radius-lg)',
                 border: '1px solid var(--border)',
               }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-ghost)', marginBottom: 16 }}>{step.num}</div>
+                <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
+                  {STEP_ICONS[step.num]}
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-ghost)' }}>{step.num}</span>
+                </div>
                 <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>{step.title}</h3>
                 <p style={{ fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.6 }}>{step.desc}</p>
               </div>
@@ -155,7 +292,7 @@ export default function Home() {
               <span></span><span>PLATFORM</span><span style={{ textAlign: 'right' }}>PIXELS</span><span style={{ textAlign: 'center' }}>RATIO</span>
             </div>
             {PLATFORMS.map((p, i) => (
-              <div key={p.id} style={{
+              <div key={p.id} className="table-row" style={{
                 display: 'grid', gridTemplateColumns: '36px 1fr 90px 60px',
                 gap: 12, padding: '10px 20px', alignItems: 'center',
                 borderBottom: i < PLATFORMS.length - 1 ? '1px solid var(--border-subtle)' : 'none',
@@ -182,20 +319,35 @@ export default function Home() {
             borderRadius: 'var(--radius-xl)',
             border: '1px solid var(--border)',
             textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden',
           }}>
+            {/* Subtle gradient accent */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 1,
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
+            }} />
+
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 16 }}>
               Your images never leave your device.
             </h2>
-            <p style={{ fontSize: 15, color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 28px', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 15, color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.6 }}>
               Reframe processes everything in your browser using the Canvas API. No uploads, no servers, no tracking. Your images stay on your computer.
             </p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 40 }}>
+            <div className="trust-row" style={{ display: 'flex', justifyContent: 'center', gap: 48 }}>
               {[
                 { label: 'No Upload', desc: 'Images processed locally' },
                 { label: 'No Account', desc: 'Start using instantly' },
                 { label: 'No Tracking', desc: 'Zero analytics on images' },
               ].map(item => (
                 <div key={item.label} style={{ textAlign: 'center' }}>
+                  <div style={{ marginBottom: 10, display: 'flex', justifyContent: 'center' }}>
+                    {TRUST_ICONS[item.label]}
+                  </div>
                   <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{item.label}</div>
                   <div style={{ fontSize: 12, color: 'var(--text-faint)' }}>{item.desc}</div>
                 </div>
@@ -212,7 +364,7 @@ export default function Home() {
           <p style={{ fontSize: 16, color: 'var(--text-muted)', marginBottom: 28 }}>
             Join thousands of creators who save hours every week.
           </p>
-          <Link to="/tool" style={{
+          <Link to="/tool" className="btn-primary" style={{
             background: '#fff',
             color: '#09090B',
             padding: '16px 36px',
