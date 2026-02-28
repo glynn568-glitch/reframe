@@ -8,7 +8,7 @@ export default function SEO({ title, description, path = '/', image }) {
 
   return (
           <Helmet>
-                <title>{title}</title>title>
+                <title>{title}</title>
                 <meta name="description" content={description} />
                 <link rel="canonical" href={url} />
           
@@ -28,6 +28,6 @@ export default function SEO({ title, description, path = '/', image }) {
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={description} />
                 <meta name="twitter:image" content={ogImage} />
-          </Helmet>Helmet>
+          </Helmet>
         )
-}</Helmet>
+}
